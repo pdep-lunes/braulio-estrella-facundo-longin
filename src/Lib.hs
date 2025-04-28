@@ -47,6 +47,8 @@ granadaDeEspinas radio unPersonaje
 torretaCurativa :: Poder
 torretaCurativa unPersonaje = unPersonaje {cantidadDeVida = cantidadDeVida unPersonaje * 2}
 
+
+
 {-bolaEspinosa: le quita 1000 puntos de vida a quien sea su contrincante (¡no debe quedar un número negativo!).
 lluviaDeTuercas: pueden ser sanadoras o dañinas. Las primeras le suman 800 puntos de vida a su colega y las segundas le disminuyen 
     a la mitad la vida de quien sea su contrincante. En cualquier otro caso, no le pasa nada al personaje.
