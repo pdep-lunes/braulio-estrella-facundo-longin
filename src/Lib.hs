@@ -18,7 +18,7 @@ pamela :: Personaje
 pamela = UnPersonaje "Pamela" lluviaDeTuercasSanadoras torretaCurativa False 9600
 
 bolaEspinosa :: Poder
-bolaEspinosa unPersonaje =  unPersonaje {cantidadDeVida = cantidadDeVida unPersonaje - 1000}
+bolaEspinosa unPersonaje =  unPersonaje {cantidadDeVida = max (cantidadDeVida unPersonaje - 1000) 0}
 
 lluviaDeTuercasSanadoras :: Poder
 lluviaDeTuercasSanadoras unPersonaje = unPersonaje {cantidadDeVida = cantidadDeVida unPersonaje + 800}
@@ -30,7 +30,10 @@ granadaDeEspinas :: Int -> Poder
 granadaDeEspinas radio unPersonaje
     | radio > 3 && cantidadDeVida unPersonaje < 800 = unPersonaje {nombre = nombre unPersonaje ++ " Espina estuvo aqui", cantidadDeVida = 0, superActiva = False}
     | radio > 3 = unPersonaje {nombre = nombre unPersonaje ++ " Espina estuvo aqui"}
-    | 
+    | otherwise = bolaEspinosa unPersonaje
+
+torretaCurativa :: Poder
+torretaCurativa unPersonaje = unPersonaje {cantidadDeVida = cantidadDeVida unPersonaje * 2}
 
 {-bolaEspinosa: le quita 1000 puntos de vida a quien sea su contrincante (¡no debe quedar un número negativo!).
 lluviaDeTuercas: pueden ser sanadoras o dañinas. Las primeras le suman 800 puntos de vida a su colega y las segundas le disminuyen 
