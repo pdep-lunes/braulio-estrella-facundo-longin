@@ -7,7 +7,7 @@ data Personaje = UnPersonaje {
     poder :: Poder,
     superPoder :: Poder,
     superActiva :: Bool,
-    cantidadDeVida :: Int }
+    cantidadDeVida :: Int }deriving Show
 
 type Poder = Personaje -> Personaje
 
@@ -17,14 +17,26 @@ espina = UnPersonaje "Espina" bolaEspinosa (granadaDeEspinas 5) True 4800
 pamela :: Personaje
 pamela = UnPersonaje "Pamela" lluviaDeTuercasSanadoras torretaCurativa False 9600
 
+sumarVida :: Int -> Personaje -> Personaje
+sumarVida vidaAgregada unPersonaje = unPersonaje {cantidadDeVida = cantidadDeVida unPersonaje + vidaAgregada}
+
+restarVida :: Int -> Personaje -> Personaje
+restarVida vidaRestada unPersonaje = unPersonaje {cantidadDeVida = max (cantidadDeVida unPersonaje - vidaRestada) 0}
+
+dividirVidaEntera :: Int -> Personaje -> Personaje
+dividirVidaEntera divisor unPersonaje = unPersonaje {cantidadDeVida = div (cantidadDeVida unPersonaje) divisor}
+
+multiplicarVida :: Int -> Personaje -> Personaje
+multiplicarVida multiplicador unPersonaje = unPersonaje {cantidadDeVida = cantidadDeVida unPersonaje * multiplicador}
+
 bolaEspinosa :: Poder
-bolaEspinosa unPersonaje =  unPersonaje {cantidadDeVida = max (cantidadDeVida unPersonaje - 1000) 0}
+bolaEspinosa = restarVida 1000 
 
 lluviaDeTuercasSanadoras :: Poder
-lluviaDeTuercasSanadoras unPersonaje = unPersonaje {cantidadDeVida = cantidadDeVida unPersonaje + 800}
+lluviaDeTuercasSanadoras = sumarVida 800
 
 lluviaDeTuercasDaninas :: Poder
-lluviaDeTuercasDaninas unPersonaje = unPersonaje {cantidadDeVida = div (cantidadDeVida unPersonaje) 2}
+lluviaDeTuercasDaninas = dividirVidaEntera 2
 
 granadaDeEspinas :: Int -> Poder
 granadaDeEspinas radio unPersonaje
